@@ -5,16 +5,40 @@
     padding-right: 16px;
 }
 
-h1, p {
+.spacing {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+h1, p, h3{
     font-weight: 200;
 }
 
+.d-flex {
+    display: flex;
+}
+
+.center {
+    justify-content: center;
+}
+
+.button {
+    background-color: #014FEC;
+    padding: 14px 22px 14px 22px;
+    color: white;
+    border-radius: 40px;
+    text-decoration: none;
+}
+
+.MuiSvgIcon-root {
+font-size: 2.4rem !important;
+}
 
 /************ LANDING ************/
 
 .MuiSvgIcon-root {
-    width: 2em !important;
-    height: 2em !important;
+    width: 0.8em !important;
+    height: 0.8em !important;
 }
 
 .landing {
@@ -28,7 +52,7 @@ h1, p {
 .logo-div {
     background-color: #E8E6DE;
     padding-top: 25px;
-    padding-bottom: 32px;
+    padding-bottom: 30px;
 }
 
 /************ CITY CARD ************/

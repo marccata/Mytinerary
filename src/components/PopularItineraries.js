@@ -6,7 +6,7 @@ export default class Popularit extends Component {
     render() {
         return (
             <div className="margins">
-                <h3>Popular MYtineraries</h3>
+                <h3>Popular itineraries</h3>
                 <Grid container spacing={1}>
                     <CityCard />
                     <CityCard />

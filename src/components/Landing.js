@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
-import PopularItineraries from './PopularItineraries.js'
-import logo from './img/MYtineraryLogo.png'
+import React, { Component } from 'react';
+import PopularItineraries from './PopularItineraries.js';
+import Link from 'react-router-dom';
+
 
 export default class Landing extends Component {
     render() {
@@ -14,11 +14,8 @@ export default class Landing extends Component {
                         <p>Find your perfect trip, designed by insiders who know and love their cities</p>
                     </div>
                 </div>
-                <a className="landing-arrow" href="">
-                    <ArrowForwardIcon />
-                </a>
-                <div>
-                    <a href="https://google.cat">Want to build your own Mytinerary?</a>
+                <div className="d-flex margins spacing center">
+                    <a className="button" to="/login">Want to build your own Mytinerary?</a>
                 </div>
                 <PopularItineraries />
             </div>
