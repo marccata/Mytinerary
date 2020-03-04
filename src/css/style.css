@@ -1,0 +1,47 @@
+/************ GENERAL ************/
+
+.margins {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+h1, p {
+    font-weight: 200;
+}
+
+
+/************ LANDING ************/
+
+.MuiSvgIcon-root {
+    width: 2em !important;
+    height: 2em !important;
+}
+
+.landing {
+    text-align: center;
+}
+
+.mylogo {
+    width: 100% !important;
+}
+
+.logo-div {
+    background-color: #E8E6DE;
+    padding-top: 25px;
+    padding-bottom: 32px;
+}
+
+/************ CITY CARD ************/
+
+.MuiCardContent-root {
+    margin-top: -90px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.cardText {
+    background-color: #3e3e3e;
+    border-radius: 40px;
+    color: white;
+    margin-bottom: 0px !important;
+    font-size: 18px !important;
+}
