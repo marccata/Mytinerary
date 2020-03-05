@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "start": "concurrently \"nodemon server.js\" \"cd ../client && npm start\"",
+    "dev": "concurrently \"nodemon server.js\" \"cd ../client && npm start\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Marc Catafal",

@@ -64,8 +64,8 @@ export default function TemporaryDrawer() {
   return (
     <div className="margins">
       <IconButton onClick={toggleDrawer('left', true)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
+        <MenuIcon />
+      </IconButton>
       <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
         {sideList('left')}
       </Drawer>
