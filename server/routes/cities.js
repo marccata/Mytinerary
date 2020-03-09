@@ -7,6 +7,26 @@ router.get('/test', (req, res) => {
 
 })
 
+router.post('/', (req, res) => {
+    const newCity = new cityModel({
+        name: req.body.name,
+        country: req.body.country,
+        img: req.body.img
+    })
+
+    cityModel.findOne({ name: newCity.name })
+    .then(city => {
+        if (city) res.status(500).send("This city already exists")}) 
+    
+    newCity.save()
+        .then(city => {
+        res.send(city)
+        })
+        .catch(err => {
+            res.status(500).send("This city already exists")
+        })
+})
+
 router.get('/all',
     (req, res) => {
         cityModel.find({})
@@ -14,6 +34,6 @@ router.get('/all',
                 res.send(files)
             })
             .catch(err => console.log(err));
-    });
+});
 
 module.exports = router

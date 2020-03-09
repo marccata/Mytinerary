@@ -47,9 +47,9 @@ export default function TemporaryDrawer() {
               Landing
             </Link>        
           </ListItem>
-          <ListItem button key='Routes'>
-            <Link to="/routes">
-              Routes
+          <ListItem button key='Cities'>
+            <Link to="/cities">
+              Cities
             </Link>           
           </ListItem>
           <ListItem button key='Login'>

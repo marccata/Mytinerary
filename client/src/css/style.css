@@ -58,14 +58,61 @@ font-size: 2.4rem !important;
 /************ CITY CARD ************/
 
 .MuiCardContent-root {
-    margin-top: -90px;
+/*    margin-top: -90px;*/
     background-color: rgba(255, 255, 255, 0.3);
+    padding: 0px !important;
 }
 
-.cardText {
-    background-color: #3e3e3e;
-    border-radius: 40px;
+.cardTitle {
+    background-color: #014FEC;
+    border-radius: 20px;
     color: white;
     margin-bottom: 0px !important;
     font-size: 18px !important;
+    text-align: center;
+    padding: 10px 16px;
+}
+
+#emptyMessage {
+    visibility: hidden;
+  }
+
+.container {
+    padding: 20px;
+}
+
+#searchBar {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 20px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    margin-bottom: 16px;
+}
+
+.cityCard {
+    margin-bottom: 16px !important;
+    height: 120px;
+    width: 100%;
+}
+
+.cityCardInner {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    background-position: center;
+    background-size: cover;
+    border-radius: 20px !important;
+}
+
+.MuiCardActionArea-root {
+    display: flex !important;
 }
