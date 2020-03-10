@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import CityCardRoute from './CityCardRoute';
 import SearchBar from './SearchBar.js';
+import NoSearchResult from './NoSearchResult';
+import { connect } from 'react-redux';
+import { getCities } from '../store/actions/cityActions.js';
 
-export default class Cities extends Component {
+class Cities extends Component {
+
+    //const {cities, getCities} = props;
 
     constructor(props) {
         super(props);
@@ -12,18 +17,19 @@ export default class Cities extends Component {
         };
     }
 
-    componentDidMount() {
-        fetch(`http://localhost:5000/api/cities/all`)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)  
-            this.setState({
-            cities: data
-            })
-        })
-        .catch(error => this.setState({ error, isLoading: false }));
+    /* AQUÍ HABIA EL FETCH, AHORA ESTA EN CITYACTIONS.JS */
+    componentDidMount(){
+        this.props.getCities()
     }
     
+    UNSAFE_componentWillReceiveProps(nextProps){
+        if(nextProps.cities != this.props.cities){
+            this.setState({
+                cities: nextProps.cities
+            })
+        }
+    }
+
     /* SEARCH FILTER - SET SEARCH VALUE*/
     searchFilter = (e) => {
         this.setState({
@@ -43,6 +49,7 @@ export default class Cities extends Component {
     }
 
     render() {
+        console.log(this.props)
         
         const cityCard = this.state.cities.filter(city => city.name.toLowerCase().includes(this.state.searchValue.toLowerCase()) || this.state.searchValue === "").map((city, i) => {
             return(
@@ -57,10 +64,18 @@ export default class Cities extends Component {
                     {cityCard}
                 </div>
                 <div id="emptyMessage">
-                    <h2>Your search has no matches...</h2>
+                    <NoSearchResult />
                 </div>
             </div>
         )
     }
 
 }
+
+const mapStateToProps = state => ({
+    cities: state.cities.cities
+})
+
+const mapDispatchToProps = { getCities }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cities)

@@ -16,22 +16,18 @@ const useStyles = {
 };
 
 
-class CityCard extends React.Component {
+class NoSearchResults extends React.Component {
 render() {
   const { classes } = this.props;
 
   return (
     <Grid container item xs={12}  className="cityCard">
-      <Card className={classes.root} className="cityCardInner" style={{ backgroundImage: `url(${this.props.city.img})` }} >
-        <CardActionArea>
-        <h3 className="cardTitle">
-        {this.props.city.name}
-        </h3>
-        </CardActionArea>
+      <Card className={classes.root} className="cityCardInner  NoSearchResult">
+        <h3 className="cardTitleSearch">Your search has no results</h3>
       </Card>
     </Grid>
   );
 }
 }
 
-export default withStyles(useStyles)(CityCard);
+export default withStyles(useStyles)(NoSearchResults);

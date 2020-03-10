@@ -68,9 +68,19 @@ font-size: 2.4rem !important;
     border-radius: 20px;
     color: white;
     margin-bottom: 0px !important;
-    font-size: 18px !important;
+    margin-top: 0px !important;
+    font-size: 16px !important;
     text-align: center;
     padding: 10px 16px;
+    font-weight: 300;
+}
+
+.cardTitleSearch {
+    color: black;
+    font-size: 16px !important;
+    text-align: center;
+    font-weight: 300;
+    width: 100%;
 }
 
 #emptyMessage {
@@ -86,7 +96,7 @@ font-size: 2.4rem !important;
     width: 100%;
     height: calc(1.5em + .75rem + 2px);
     padding: .375rem .75rem;
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: 400;
     line-height: 1.5;
     color: #495057;
@@ -99,7 +109,7 @@ font-size: 2.4rem !important;
 }
 
 .cityCard {
-    margin-bottom: 16px !important;
+    margin-bottom: 10px !important;
     height: 120px;
     width: 100%;
 }
@@ -110,9 +120,20 @@ font-size: 2.4rem !important;
     display: flex;
     background-position: center;
     background-size: cover;
-    border-radius: 20px !important;
+    border-radius: 14px !important;
+}
+
+.cityCard .NoSearchResult {
+    background-color: #E8E6DE !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .MuiCardActionArea-root {
     display: flex !important;
+}
+
+.NoSearchResult {
+    background-color: #ced4da;
 }
