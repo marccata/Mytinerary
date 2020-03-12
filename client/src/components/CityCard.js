@@ -5,7 +5,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import CityImg from './img/nyc.jpg'
 import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles({
@@ -27,7 +26,6 @@ export default function CityCard() {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image={CityImg}
             title="Contemplative Reptile"
           />
           <CardContent>

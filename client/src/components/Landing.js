@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PopularItineraries from './PopularItineraries.js';
-import Link from 'react-router-dom';
 
 
 export default class Landing extends Component {

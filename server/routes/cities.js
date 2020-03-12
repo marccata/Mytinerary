@@ -16,14 +16,17 @@ router.post('/', (req, res) => {
 
     cityModel.findOne({ name: newCity.name })
     .then(city => {
-        if (city) res.status(500).send("This city already exists")}) 
+        if (city) res.status(500).send("This city already exists")
+    }) 
     
+    // PORQUE NEWCITY SAVE NO ES ASINCRONO? NO ENTENDER YO
+
     newCity.save()
         .then(city => {
         res.send(city)
         })
         .catch(err => {
-            res.status(500).send("This city already exists")
+            res.status(500).send("Error")
         })
 })
 

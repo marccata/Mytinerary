@@ -7,8 +7,6 @@ import { getCities } from '../store/actions/cityActions.js';
 
 class Cities extends Component {
 
-    //const {cities, getCities} = props;
-
     constructor(props) {
         super(props);
         this.state = {
@@ -17,13 +15,12 @@ class Cities extends Component {
         };
     }
 
-    /* AQUÍ HABIA EL FETCH, AHORA ESTA EN CITYACTIONS.JS */
     componentDidMount(){
         this.props.getCities()
     }
     
     UNSAFE_componentWillReceiveProps(nextProps){
-        if(nextProps.cities != this.props.cities){
+        if(nextProps.cities !== this.props.cities){
             this.setState({
                 cities: nextProps.cities
             })
