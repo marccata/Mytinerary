@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PopularItineraries from './PopularItineraries.js';
+import PopularItineraries from '../components/PopularItineraries.js';
 
 
 export default class Landing extends Component {

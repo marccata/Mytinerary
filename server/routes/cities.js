@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
         if (city) res.status(500).send("This city already exists")
     }) 
     
-    // PORQUE NEWCITY SAVE NO ES ASINCRONO? NO ENTENDER YO
+    //TODO PORQUE NEWCITY SAVE NO ES ASINCRONO? NO ENTENDER YO
 
     newCity.save()
         .then(city => {

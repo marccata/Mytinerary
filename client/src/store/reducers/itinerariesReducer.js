@@ -1,30 +1,31 @@
-import { REQUEST_CITIES } from '../actions/types';
-import { GET_CITIES } from '../actions/types';
-import { ERROR_CITIES } from '../actions/types';
+import { REQUEST_ITINERARIES } from '../actions/types';
+import { GET_ITINERARIES } from '../actions/types';
+import { ERROR_ITINERARIES } from '../actions/types';
 
 
 const initState = {
-    cities:[],
+    itineraries:[],
     isLoading: false,
     error: null
 };
 
 export default function citiesReducer(state = initState, action) {
     switch (action.type) {
-        case REQUEST_CITIES:
+        case REQUEST_ITINERARIES:
             return {
                 ...state,
                 isLoading: true
             };
-        case GET_CITIES:
+        case GET_ITINERARIES:
+            console.log(action.payload);
             return {
                 ...state,
                 error: null,
-                cities: action.payload,
+                itineraries: action.payload,
                 isLoading: false
             };
-        case ERROR_CITIES:
-            console.log("FETCH CATCH: ERROR LOADING DATA", action);
+        case ERROR_ITINERARIES:
+            console.log("AXIOS CATCH: ERROR LOADING DATA", action);
             return {
                 ...state,
                 error: action.error.message,

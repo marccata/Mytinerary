@@ -14,6 +14,7 @@ app.use(
 app.use(cors());
 
 app.use('/api/cities', require('./routes/cities'))
+app.use('/api/itineraries', require('./routes/itineraries'))
 
 app.listen(port, () => {
   console.log("Server is running on " + port + "port");

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import CityCardRoute from './CityCardRoute';
-import SearchBar from './SearchBar.js';
-import NoSearchResult from './NoSearchResult';
+import CityCardRoute from '../components/CityCardRoute';
+import SearchBar from '../components/SearchBar.js';
+import NoSearchResult from '../components/NoSearchResult';
 import { connect } from 'react-redux';
 import { getCities } from '../store/actions/cityActions.js';
 
@@ -48,7 +48,7 @@ class Cities extends Component {
     render() {
         console.log(this.props)
         
-        const cityCard = this.state.cities.filter(city => city.name.toLowerCase().includes(this.state.searchValue.toLowerCase()) || this.state.searchValue === "").map((city, i) => {
+        const cityCard = this.state.cities.filter(city => city.name.toLowerCase().startsWith(this.state.searchValue.toLowerCase()) || this.state.searchValue === "").map((city, i) => {
             return(
                 <CityCardRoute city={city} key={i} />
             )
