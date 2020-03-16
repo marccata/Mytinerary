@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getItineraries } from '../store/actions/itinerariesActions';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import Grid from '@material-ui/core/Grid';
 
 class Itineraries extends Component {
 
@@ -29,12 +32,21 @@ class Itineraries extends Component {
 
         const itineraryCard = this.props.itineraries.map((itinerary, i) => {
             return(
-                <p>{itinerary.title}</p>
+                <Grid container item xs={12}  className="cityCard">
+                    <Card className="cityCardInner" >
+                        <CardActionArea>
+                        <h3 className="cardTitle">{itinerary.title}</h3>
+                        </CardActionArea>
+                    </Card>
+                </Grid>
             )
         });
         
         return (
             <div  className="container">
+                <div id="itineraryCityImg">
+                    
+                </div>
                 <div id="cityCardsBox">
                     {itineraryCard}
                 </div>

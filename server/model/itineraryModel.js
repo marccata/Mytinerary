@@ -12,6 +12,22 @@ const itinerarySchema = new mongoose.Schema({
     city_id: {
         type: String,
         required: true
+    },
+    city_name: {
+        type: String,
+        required: true
+    },
+    likes: {
+        type: String,
+        required: false
+    },
+    hours: {
+        type: String,
+        required: false
+    },
+    price: {
+        type: String,
+        required: false
     }
 })
 

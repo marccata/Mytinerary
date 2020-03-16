@@ -137,3 +137,14 @@ font-size: 2.4rem !important;
 .NoSearchResult {
     background-color: #ced4da;
 }
+
+#cityCardsBox a {
+    width: 100%;
+    text-decoration: none;
+}
+
+#itineraryCityImg {
+    background-color: antiquewhite;
+    width: 100%;
+    height: 160px;
+}
