@@ -25,6 +25,18 @@ const itinerarySchema = new mongoose.Schema({
     price: {
         type: String,
         required: false
+    },
+    img: {
+        type: String,
+        required: false
+    },
+    user_img: {
+        type: String,
+        required: false
+    },
+    description: {
+        type: String,
+        required: false
     }
 })
 

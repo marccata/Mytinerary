@@ -6,6 +6,7 @@ import './css/style.css';
 import SideMenu from './components/SideMenu.js';
 import LogIn from './views/LogIn.js';
 import Itineraries from './views/Itineraries.js';
+import Activities from './components/Activities';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path='/' component={Landing} />
           <Route exact path='/cities' component={Cities} />
           <Route exact path='/itineraries/:city_id' component={Itineraries} />
+          <Route exact path='/activities/:itinerary_id' component={Activities} />
           <Route exact path='/login' component={LogIn} />
         </Switch>
       </div>

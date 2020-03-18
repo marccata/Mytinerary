@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
         res.send(city)
         })
         .catch(err => {
-            res.status(500).send("Error")
+            res.status(500).send("Error: " + err)
         })
 })
 

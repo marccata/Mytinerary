@@ -12,19 +12,23 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Activities from '../components/Activities';
 
 const styles = theme => ({
     root: {
       maxWidth: 345,
+      border: '#E8E6DC solid 1px',
+      boxShadow: 'none',
+      borderRadius: '12px',
+      marginBottom: '20px'
     },
     media: {
       height: 0,
-      paddingTop: '56.25%', // 16:9
+      paddingTop: '42%', // 16:9 56.25%
+      marginRight: '16px',
+      marginLeft: '16px',
+      borderRadius: '8px'
     },
     expand: {
       transform: 'rotate(0deg)',
@@ -37,19 +41,49 @@ const styles = theme => ({
       transform: 'rotate(180deg)',
     },
     avatar: {
-      backgroundColor: red[500],
+      backgroundColor: '#E8E6DC',
+      color: '#000000',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover'
     },
+    content: {
+      marginRight: '16px',
+      marginLeft: '16px',
+    },
+    description: {
+        fontSize: '0.875rem'
+    },
+    tilesContainer: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        overflow: 'hidden',
+        backgroundColor: theme.palette.background.paper,
+    },
+    gridList: {
+        flexWrap: 'nowrap',
+        // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+        transform: 'translateZ(0)',
+        display: 'flex',
+        overflowY: 'auto',
+        listStyle: 'none',
+        paddingInlineStart: '0px !important'
+    },
+    activitiesTiles: {
+        width: '150px',
+        height: '150px',
+        marginRight: '14px',
+    }
   });
   
-
 class Itineraries extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             itineraries: [],
-            expanded: false,
-            name:"",
+            selectedItineraryId: "",
+            name:""
         };
     }
 
@@ -66,85 +100,61 @@ class Itineraries extends Component {
         }
     }
 
-    handleExpandClick = () => {
-        this.setState({expanded : !this.state.expanded})
+    handleExpandClick = (itineraryId) => {
+        itineraryId == this.state.selectedItineraryId ? 
+        this.setState({selectedItineraryId : ""}) :
+        this.setState({selectedItineraryId : itineraryId})
     };
 
     render() {        
         let itineraries = this.props.itineraries;
         const { classes } = this.props;
-       // const [name, setName] = useState("");
+       
         const itineraryCard = this.props.itineraries.map((itinerary, i) => {
             return(
                 <Card className={classes.root} key={itinerary._id}>
                 <CardHeader
                     avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                        R
+                    <Avatar aria-label="recipe" className={classes.avatar} style={{ backgroundImage: `url(${itinerary.user_img === "" ? null : itinerary.user_img})` }}>
+                        {itinerary.user_img === "" ? itinerary.user.charAt(0) : ' '}
                     </Avatar>
                     }
-                    action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
-                    }
-                    title="Shrimp and Chorizo Paella"
-                    subheader="September 14, 2016"
+                    title={itinerary.title}
+                    subheader={'By ' + itinerary.user}
                 />
                 <CardMedia
                     className={classes.media}
-                    image="/static/images/cards/paella.jpg"
-                    title="Paella dish"
+                    image={itinerary.img}
+                    title="Route image"
                 />
                 <CardContent>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                    This impressive paella is a perfect party dish and a fun meal to cook together with your
-                    guests. Add 1 cup of frozen peas along with the mussels, if you like.
-                    </Typography>
+                    
                 </CardContent>
                 <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                    <ShareIcon />
-                    </IconButton>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {itinerary.likes + " Likes"} | {itinerary.hours + " Hours"} | {"Price " + itinerary.price}
+                    </Typography>
                     <IconButton
                     className={clsx(classes.expand, {
-                        [classes.expandOpen]: this.state.expanded,
+                        [classes.expandOpen]: this.state.selectedItineraryId == itinerary._id,
                     })}
-                    onClick={this.handleExpandClick}
-                    aria-expanded={this.state.expanded}
+                    onClick={()=>this.handleExpandClick(itinerary._id)}
+                    aria-expanded={this.state.selectedItineraryId == itinerary._id}
                     aria-label="show more"
                     >
                     <ExpandMoreIcon />
                     </IconButton>
                 </CardActions>
-                <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-                    <CardContent>
-                    <Typography paragraph>Method:</Typography>
-                    <Typography paragraph>
-                        Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-                        minutes.
+                <Collapse in={this.state.selectedItineraryId== itinerary._id} timeout="auto" unmountOnExit >
+                    <CardContent className={classes.content}>
+                    <Typography className={classes.description} paragraph>
+                        {itinerary.description}
                     </Typography>
-                    <Typography paragraph>
-                        Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-                        heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-                        browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving chicken
-                        and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion, salt and
-                        pepper, and cook, stirring often until thickened and fragrant, about 10 minutes. Add
-                        saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-                    </Typography>
-                    <Typography paragraph>
-                        Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
-                        without stirring, until most of the liquid is absorbed, 15 to 18 minutes. Reduce heat to
-                        medium-low, add reserved shrimp and mussels, tucking them down into the rice, and cook
-                        again without stirring, until mussels have opened and rice is just tender, 5 to 7
-                        minutes more. (Discard any mussels that don’t open.)
-                    </Typography>
-                    <Typography>
-                        Set aside off of the heat to let rest for 10 minutes, and then serve.
-                    </Typography>
+                    <div className={classes.tilesContainer} id="hideScrollBar">
+                        <ul className={classes.gridList}>
+                            <Activities itinerary_id={itinerary._id}/>
+                        </ul>
+                    </div>
                     </CardContent>
                 </Collapse>
                 </Card>
@@ -167,9 +177,8 @@ class Itineraries extends Component {
 
 } 
 
-
 const mapStateToProps = state => ({
-    itineraries: state.itineraries.itineraries
+    itineraries: state.itineraries.itineraries,
 })
 
 const mapDispatchToProps = { getItineraries }

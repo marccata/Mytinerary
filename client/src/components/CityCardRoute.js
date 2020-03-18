@@ -9,10 +9,7 @@ import { Link as RouterLink } from 'react-router-dom';
 const useStyles = {
   root: {
     maxWidth: 345,
-    flexGrow: 1,
-  },
-  media: {
-    height: 130,
+    flexGrow: 1
   },
 };
 

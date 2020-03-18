@@ -120,7 +120,7 @@ font-size: 2.4rem !important;
     display: flex;
     background-position: center;
     background-size: cover;
-    border-radius: 14px !important;
+    border-radius: 12px !important;
 }
 
 .cityCard .NoSearchResult {
@@ -157,4 +157,20 @@ font-size: 2.4rem !important;
 #itineraryCityImg .cardTitle {
     justify-content: center;
     display: flex;
+}
+
+#cityCardsBox .MuiIconButton-root {
+    padding: 5px;
+}
+
+#cityCardsBox .MuiCardActions-root {
+    padding: 8px 16px;
+}
+
+.MuiGridListTile-tile {
+    border-radius: 8px;
+}
+
+#hideScrollBar ::-webkit-scrollbar {
+    display: none;
 }

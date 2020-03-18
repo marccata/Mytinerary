@@ -14,7 +14,10 @@ router.post('/', (req, res) => {
         city_id: req.body.city_id,
         price: req.body.price,
         hours: req.body.price,
-        likes: req.body.likes
+        likes: req.body.likes,
+        img: req.body.img,
+        user_img: req.body.user_img,
+        description: req.body.description
     })
 
     itineraryModel.findOne({ title: newItinerary.title })
