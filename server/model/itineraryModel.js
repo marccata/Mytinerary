@@ -10,11 +10,8 @@ const itinerarySchema = new mongoose.Schema({
         required: true
     },
     city_id: {
-        type: String,
-        required: true
-    },
-    city_name: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'city',
         required: true
     },
     likes: {

@@ -11,6 +11,10 @@ router.post('/', (req, res) => {
     const newItinerary = new itineraryModel({
         title: req.body.title,
         user: req.body.user,
+        city_id: req.body.city_id,
+        price: req.body.price,
+        hours: req.body.price,
+        likes: req.body.likes
     })
 
     itineraryModel.findOne({ title: newItinerary.title })
@@ -23,7 +27,7 @@ router.post('/', (req, res) => {
         res.send(itinerary)
         })
         .catch(err => {
-            res.status(500).send("Error")
+            res.status(500).send("Error" + err)
         })
 })
 
@@ -40,10 +44,11 @@ router.get('/bycity/:city_id',
     (req, res) => {
         let cityRequested = req.params.city_id;
         itineraryModel.find({city_id:cityRequested})
-            .then(files => {
+            .populate('city_id')
+            .exec((err, files) => {
+                console.log(files);
                 res.send(files)
             })
-            .catch(err => console.log(err));
 });
 
 module.exports = router

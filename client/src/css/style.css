@@ -147,4 +147,14 @@ font-size: 2.4rem !important;
     background-color: antiquewhite;
     width: 100%;
     height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+}
+
+#itineraryCityImg .cardTitle {
+    justify-content: center;
+    display: flex;
 }
