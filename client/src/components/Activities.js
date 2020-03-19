@@ -11,7 +11,7 @@ const styles = theme => ({
         height: '150px',
         marginRight: '14px',
     }
-  });
+});
   
 class Activities extends Component {
 

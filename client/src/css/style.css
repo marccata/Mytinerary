@@ -6,8 +6,8 @@
 }
 
 .spacing {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 h1, p, h3{
@@ -20,14 +20,6 @@ h1, p, h3{
 
 .center {
     justify-content: center;
-}
-
-.button {
-    background-color: #014FEC;
-    padding: 14px 22px 14px 22px;
-    color: white;
-    border-radius: 40px;
-    text-decoration: none;
 }
 
 .MuiSvgIcon-root {
@@ -49,10 +41,11 @@ font-size: 2.4rem !important;
     width: 100% !important;
 }
 
-.logo-div {
-    background-color: #E8E6DE;
-    padding-top: 25px;
-    padding-bottom: 30px;
+#landingCityTiles .MuiGridListTileBar-title {
+    background-color: #014FEC;
+    padding: 5px;
+    border-radius: 20px;
+    margin-bottom: 10px;
 }
 
 /************ CITY CARD ************/
@@ -73,6 +66,10 @@ font-size: 2.4rem !important;
     text-align: center;
     padding: 10px 16px;
     font-weight: 300;
+}
+
+#itineraryCityImg .cardTitle {
+    margin-top: 50px !important;
 }
 
 .cardTitleSearch {
@@ -105,7 +102,18 @@ font-size: 2.4rem !important;
     border: 1px solid #ced4da;
     border-radius: 20px;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    margin-bottom: 16px;
+    margin: 20px;
+    margin-top: 75px;
+}
+
+.searchBarHeader {
+    height: 210px;
+    background-color: #E8E6DE;
+    display: flex;
+    align-items: center;
+    background-image: url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2826&q=80');
+    background-position: center;
+    background-size: cover;
 }
 
 .cityCard {
@@ -146,7 +154,7 @@ font-size: 2.4rem !important;
 #itineraryCityImg {
     background-color: antiquewhite;
     width: 100%;
-    height: 160px;
+    height: 210px;
     display: flex;
     justify-content: center;
     align-items: center;

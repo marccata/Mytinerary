@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import CityCardRoute from '../components/CityCardRoute';
 import SearchBar from '../components/SearchBar.js';
 import NoSearchResult from '../components/NoSearchResult';
@@ -55,15 +55,17 @@ class Cities extends Component {
         });
         
         return (
-            <div  className="container">
+            <Fragment>
                 <SearchBar searchFilter={this.searchFilter}/>
-                <div id="cityCardsBox">
-                    {cityCard}
+                <div  className="container">
+                    <div id="cityCardsBox">
+                        {cityCard}
+                    </div>
+                    <div id="emptyMessage">
+                        <NoSearchResult />
+                    </div>
                 </div>
-                <div id="emptyMessage">
-                    <NoSearchResult />
-                </div>
-            </div>
+            </Fragment>
         )
     }
 
