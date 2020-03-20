@@ -40,8 +40,12 @@ class Cities extends Component {
     checkIfEmpty() {
         if(document.getElementById('cityCardsBox').innerHTML === "") {
             document.getElementById('emptyMessage').style.visibility = 'visible';
+            document.getElementById('emptyMessageInner').style.height = '100%';
+            document.getElementById('emptyMessageBox').style.height = '120px';
         } else {
             document.getElementById('emptyMessage').style.visibility = 'hidden';
+            document.getElementById('emptyMessageInner').style.height = '0px';
+            document.getElementById('emptyMessageBox').style.height = '0px';
         }
     }
 

@@ -1,27 +1,14 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from "@material-ui/core/styles";
-
-
-const useStyles = {
-  root: {
-    maxWidth: 345,
-    flexGrow: 1,
-  },
-  media: {
-    height: 130,
-  },
-};
-
 
 class NoSearchResults extends React.Component {
 render() {
   const { classes } = this.props;
 
   return (
-    <Grid container item xs={12}  className="cityCard">
-      <Card className={classes.root} className="cityCardInner  NoSearchResult">
+    <Grid container item xs={12}  className="cityCard" id="emptyMessageBox">
+      <Card className="cityCardInner  NoSearchResult"  id="emptyMessageInner">
         <h3 className="cardTitleSearch">Your search has no results</h3>
       </Card>
     </Grid>
@@ -29,4 +16,4 @@ render() {
 }
 }
 
-export default withStyles(useStyles)(NoSearchResults);
+export default (NoSearchResults);

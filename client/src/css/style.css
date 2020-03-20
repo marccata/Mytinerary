@@ -182,3 +182,7 @@ font-size: 2.4rem !important;
 #hideScrollBar ::-webkit-scrollbar {
     display: none;
 }
+
+#emptyMessageInner, #emptyMessageBox {
+    height: 0px;
+}

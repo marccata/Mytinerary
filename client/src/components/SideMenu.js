@@ -76,9 +76,9 @@ export default function TemporaryDrawer() {
               Cities
             </Link>           
           </ListItem>
-          <ListItem button key='Login'>
-            <Link to="/login" className={classes.link}>
-              Log In
+          <ListItem button key='Sign Up'>
+            <Link to="/signup" className={classes.link}>
+              Sign Up
             </Link>           
           </ListItem>
       </List>

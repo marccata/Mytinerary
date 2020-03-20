@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import CityCard from './CityCard'
-import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';

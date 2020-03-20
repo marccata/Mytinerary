@@ -28,7 +28,8 @@ const styles = theme => ({
       paddingTop: '42%', // 16:9 56.25%
       marginRight: '16px',
       marginLeft: '16px',
-      borderRadius: '8px'
+      borderRadius: '8px',
+      backgroundColor: '#E8E6DC'
     },
     expand: {
       transform: 'rotate(0deg)',
