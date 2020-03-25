@@ -102,7 +102,7 @@ class Itineraries extends Component {
     }
 
     handleExpandClick = (itineraryId) => {
-        itineraryId == this.state.selectedItineraryId ? 
+        itineraryId === this.state.selectedItineraryId ? 
         this.setState({selectedItineraryId : ""}) :
         this.setState({selectedItineraryId : itineraryId})
     };
@@ -137,16 +137,16 @@ class Itineraries extends Component {
                     </Typography>
                     <IconButton
                     className={clsx(classes.expand, {
-                        [classes.expandOpen]: this.state.selectedItineraryId == itinerary._id,
+                        [classes.expandOpen]: this.state.selectedItineraryId === itinerary._id,
                     })}
                     onClick={()=>this.handleExpandClick(itinerary._id)}
-                    aria-expanded={this.state.selectedItineraryId == itinerary._id}
+                    aria-expanded={this.state.selectedItineraryId === itinerary._id}
                     aria-label="show more"
                     >
                     <ExpandMoreIcon />
                     </IconButton>
                 </CardActions>
-                <Collapse in={this.state.selectedItineraryId== itinerary._id} timeout="auto" unmountOnExit >
+                <Collapse in={this.state.selectedItineraryId === itinerary._id} timeout="auto" unmountOnExit >
                     <CardContent className={classes.content}>
                     <Typography className={classes.description} paragraph>
                         {itinerary.description}

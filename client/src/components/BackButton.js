@@ -26,8 +26,6 @@ const useStyles = {
 class BackButton extends React.Component {
 
   render() {
-
-    console.log(this.props)
     const { classes } = this.props;
     const goBack = () => this.props.history.goBack();
     const { pathname } = this.props.location;

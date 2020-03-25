@@ -1,19 +1,26 @@
 const express = require('express')
 const router = express.Router()
-const User = require('../model/newUserModel.js')
+const User = require('../model/userModel.js')
 const bcrypt = require('bcrypt');
+const { check, validationResult } = require('express-validator');
 
 router.get('/test', (req, res) => {
     res.send({ msg: 'Sign Up test route.' })
 
 })
 
-router.post('/', (req, res) => {
+router.post('/', [check('email').isEmail()], (req, res) => { //THE CHECK EMAIL PART IS A FEATURE FROM EXPRESS VALIDATOR TO CHECK IF EMAIL IS AN EMAIL
     let newUser = new User({
         email: req.body.email,
         password: req.body.password,
         user_img: req.body.user_img
     })
+
+    //THIS IS THE ERROR ALERT FROM EXPRESS VALIDATOR IN CASE THAT EMAIL IS NOT AN EMAIL
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
 
     User.findOne({ email : newUser.email }) //TODO COMPARA
         .then(existingUser => {
@@ -39,7 +46,7 @@ router.post('/', (req, res) => {
 
 router.get('/all',
     (req, res) => {
-        newUserModel.find({})
+        User.find({})
             .then(files => {
                 res.send(files)
             })

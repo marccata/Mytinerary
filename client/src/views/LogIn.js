@@ -34,7 +34,7 @@ const styles = theme => ({
   },
 });
 
-class SignUp extends Component {
+class LogIn extends Component {
 
   constructor(props) {
       super(props);
@@ -77,11 +77,11 @@ class SignUp extends Component {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Log In
           </Typography>
           <form className={classes.form} noValidate>
-            <Grid container spacing={2} key="email">
-              <Grid item xs={12}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} key="email">
                 <TextField
                   variant="outlined"
                   required
@@ -109,18 +109,6 @@ class SignUp extends Component {
                   onChange={this.changePassword}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} key="userimg">
-                <TextField
-                  autoComplete="fname"
-                  name="userimg"
-                  variant="outlined"
-                  fullWidth
-                  id="userimg"
-                  label="Image URL"
-                  value={this.state.userImg} 
-                  onChange={this.changeImg}
-                />
-              </Grid>
             </Grid>
             <Button
               type="submit"
@@ -130,7 +118,7 @@ class SignUp extends Component {
               className={classes.submit}
               onClick={() => { this.submitUser(this.state.userEmail, this.state.userPassword, this.state.userImg) }}
             >
-              Sign Up
+              Log In
             </Button>
           </form>
         </div>
@@ -145,4 +133,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = { postUser }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SignUp))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(LogIn))

@@ -64,21 +64,27 @@ export default function TemporaryDrawer() {
       role="presentation"
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
+      key="box"
     >
-      <List>
+      <List key="list">
           <ListItem button key='Landing'>
-            <Link to="/" className={classes.link}>
+            <Link to="/" className={classes.link} key='LandingInner'>
               Landing
             </Link>        
           </ListItem>
           <ListItem button key='Cities'>
-            <Link to="/cities" className={classes.link}>
+            <Link to="/cities" className={classes.link} key='CitiesInner'>
               Cities
             </Link>           
           </ListItem>
           <ListItem button key='Sign Up'>
-            <Link to="/signup" className={classes.link}>
+            <Link to="/signup" className={classes.link} key='SignUpInner'>
               Sign Up
+            </Link>           
+          </ListItem>
+          <ListItem button key='Sign Up'>
+            <Link to="/login" className={classes.link} key='LogInInner'>
+              Log In
             </Link>           
           </ListItem>
       </List>
@@ -86,7 +92,7 @@ export default function TemporaryDrawer() {
   );
 
   return (
-    <div className={classes.header}>
+    <div className={classes.header} key="main">
       <IconButton onClick={toggleDrawer('left', true)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
         <MenuIcon className={classes.menuIcon}/>
       </IconButton>
