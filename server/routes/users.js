@@ -3,6 +3,7 @@ const router = express.Router()
 const User = require('../model/userModel.js')
 const bcrypt = require('bcrypt');
 const { check, validationResult } = require('express-validator');
+const passport = require("../middleware/passport");
 
 router.get('/test', (req, res) => {
     res.send({ msg: 'Sign Up test route.' })
@@ -43,6 +44,21 @@ router.post('/', [check('email').isEmail()], (req, res) => { //THE CHECK EMAIL P
         })
         .catch(err => console.log(err));
 })
+
+router.get("/auth/",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+        console.log(req.user)
+      User
+        .findById(req.user._id )
+        .select("-password") //DO NOT RETURN PASSWORD IN ARRAY
+        .then(user => {
+          res.json(user);
+        })
+    
+        .catch(err => res.status(404).json({ error: "User does not exist!" }));
+    }
+);
 
 router.get('/all',
     (req, res) => {

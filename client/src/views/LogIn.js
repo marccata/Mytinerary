@@ -9,8 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-
-import { postUser } from '../store/actions/usersActions';
+import { logInUser } from '../store/actions/logInAction.js';
+import { Redirect } from 'react-router-dom';
 
 const styles = theme => ({
   main: {
@@ -37,38 +37,36 @@ const styles = theme => ({
 class LogIn extends Component {
 
   constructor(props) {
-      super(props);
-      this.state = {
-          userEmail: '',
-          userPassword: '',
-          userImg: ''
-      };
-      // TODO WHAT IS THIS FOR?
-      this.changeEmail = this.changeEmail.bind(this);
-      this.changePassword = this.changePassword.bind(this);
-      this.changeImg = this.changeImg.bind(this);
+    super(props);
+    this.state = {
+      userEmail: '',
+      userPassword: '',
+      userImg: '',
+      loggedUser: '',
+      token: '',
+    };
+    this.changeEmail = this.changeEmail.bind(this);
+    this.changePassword = this.changePassword.bind(this);
+    this.logInUserButton = this.logInUserButton.bind(this);
   }
 
-  // ON SUBMIT ACTIONS
-  submitUser(userEmail, userPassword, userImg) {
-    this.props.postUser(userEmail, userPassword, userImg);
-    this.props.history.push('/')
+  // AFTER LOG IN BUTTON IS CLICKED MAKE THIS
+  logInUserButton(userEmail, userPassword) {
+    this.props.logInUser(userEmail, userPassword);
   }
 
-  // ONCHANGE EVENTS FOR INPUT FIELDS
-  changeEmail(event) {
-    this.setState({userEmail: event.target.value});
-  }
-  changePassword(event) {
-    this.setState({userPassword: event.target.value});
-  }
-  changeImg(event) {
-    this.setState({userImg: event.target.value});
-  }
+  // ONCHANGE EVENTS FOR INPUT FIELDS - MAYBE THIS CAN BE SIMPLIFIED
+  changeEmail(event) { this.setState({userEmail: event.target.value}) }
+  changePassword(event) { this.setState({userPassword: event.target.value}) }
 
   render() {
     const { classes } = this.props;
+    console.log("token is " + this.props.token);
 
+    if (this.props.token) {  //TODO MAL, EN LUGAR DE SI TOKEN EXISTE, HAY QUE PONER SI HAY ALGUIEN AUTENTICADO, NO SE PUEDE CAMBIAR USER SINO.
+      return <Redirect to="/" />
+    }
+    
     return (
       <Container component="main" maxWidth="xs" className={classes.main}>
         <CssBaseline />
@@ -111,12 +109,11 @@ class LogIn extends Component {
               </Grid>
             </Grid>
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={() => { this.submitUser(this.state.userEmail, this.state.userPassword, this.state.userImg) }}
+              onClick={() => { this.logInUserButton(this.state.userEmail, this.state.userPassword) }}
             >
               Log In
             </Button>
@@ -128,9 +125,9 @@ class LogIn extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user,
+  token: state.logIn.token
 })
 
-const mapDispatchToProps = { postUser }
+const mapDispatchToProps = { logInUser }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(LogIn))

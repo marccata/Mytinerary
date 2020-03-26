@@ -2,11 +2,15 @@ import { combineReducers } from "redux";
 import citiesReducer from "./citiesReducer";
 import itinerariesReducer from "./itinerariesReducer";
 import activitiesReducer from "./activitiesReducer";
+import registerUserReducer from "./registerUserReducer";
+import logInReducer from "./logInReducer";
 
 const rootReducer = combineReducers({
     cities: citiesReducer,
     itineraries: itinerariesReducer,
-    activities: activitiesReducer
+    activities: activitiesReducer,
+    register: registerUserReducer,
+    logIn: logInReducer
 });
 
 export default rootReducer;

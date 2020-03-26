@@ -43,7 +43,6 @@ class SignUp extends Component {
           userPassword: '',
           userImg: ''
       };
-      // TODO WHAT IS THIS FOR?
       this.changeEmail = this.changeEmail.bind(this);
       this.changePassword = this.changePassword.bind(this);
       this.changeImg = this.changeImg.bind(this);
@@ -52,7 +51,7 @@ class SignUp extends Component {
   // ON SUBMIT ACTIONS
   submitUser(userEmail, userPassword, userImg) {
     this.props.postUser(userEmail, userPassword, userImg);
-    this.props.history.push('/')
+    this.props.history.push('/login')
   }
 
   // ONCHANGE EVENTS FOR INPUT FIELDS
@@ -123,7 +122,6 @@ class SignUp extends Component {
               </Grid>
             </Grid>
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"

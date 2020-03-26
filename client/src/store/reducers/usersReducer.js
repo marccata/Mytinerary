@@ -3,12 +3,14 @@ import { POST_USER } from '../actions/types';
 import { ERROR_USER } from '../actions/types';
 
 
-const initState = {
-    user:[],
+const initState = { 
+    user:null,
     isLoading: false,
-    error: null
+    error: null,
+    //isAuthenticate : true
 };
 
+// TODO JUNTAR TODO
 export default function citiesReducer(state = initState, action) {
     switch (action.type) {
         case REQUEST_USER:

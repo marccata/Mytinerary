@@ -13,6 +13,12 @@ app.use(
 );
 app.use(cors());
 
+//passport configuration
+const passport = require("passport");
+//passport middleware
+app.use(passport.initialize());
+
+//routes
 app.use('/api/cities', require('./routes/cities'))
 app.use('/api/itineraries', require('./routes/itineraries'))
 app.use('/api/activities', require('./routes/activities'))
@@ -28,8 +34,3 @@ const mongoose = require("mongoose");
 mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
     .then(() => console.log('Connection to Mongo DB established'))
     .catch(err => console.log(err));
-
-//passport middleware
-app.use(passport.initialize());
-//passport configuration
-require("./middleware/passport");
