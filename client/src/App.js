@@ -8,7 +8,7 @@ import Itineraries from './views/Itineraries.js';
 import Activities from './components/Activities';
 import SignUp from './views/SignUp.js';
 import LogIn from './views/LogIn';
-import { registerUser } from './store/actions/registerAction.js';
+import { registerUser } from './store/actions/usersActions.js';
 import { connect } from 'react-redux';
 
 
@@ -21,14 +21,14 @@ class App extends React.Component{
     };
    //this.registerUser = this.registerUser.bind(this);
   }
-  
+  /*
   componentDidMount(){
     if (localStorage.getItem('userToken')) {  // IS AUTENTICATE
       let userToken = localStorage.getItem('userToken')
       this.props.registerUser(userToken);
     }
   }
-  
+  */
   render(){
     return (
       <BrowserRouter>

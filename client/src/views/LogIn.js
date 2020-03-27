@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { logInUser } from '../store/actions/logInAction.js';
+import { logInUser } from '../store/actions/usersActions.js';
 import { Redirect } from 'react-router-dom';
 
 const styles = theme => ({

@@ -2,14 +2,14 @@ import { combineReducers } from "redux";
 import citiesReducer from "./citiesReducer";
 import itinerariesReducer from "./itinerariesReducer";
 import activitiesReducer from "./activitiesReducer";
-import registerUserReducer from "./registerUserReducer";
-import logInReducer from "./logInReducer";
+import logInReducer from "./usersReducer";
+import userAuthReducer from "./usersReducer";
 
 const rootReducer = combineReducers({
     cities: citiesReducer,
     itineraries: itinerariesReducer,
     activities: activitiesReducer,
-    register: registerUserReducer,
+    auth: userAuthReducer,
     logIn: logInReducer
 });
 
