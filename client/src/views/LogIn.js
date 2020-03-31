@@ -125,7 +125,7 @@ class LogIn extends Component {
 }
 
 const mapStateToProps = state => ({
-  token: state.logIn.token
+  token: state.logIn //antes estaba como state.logIn.token y funcionaba
 })
 
 const mapDispatchToProps = { logInUser }

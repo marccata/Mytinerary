@@ -67,7 +67,7 @@ class Popularit extends Component {
 
         const cityCard = this.state.cities.map((city, i) => {
             return(
-                <Link to={"/itineraries/" + city._id}>                       
+                <Link to={"/itineraries/" + city._id} key={i}>                       
                     <GridListTile className={classes.cityCard} key={i} style={{ backgroundImage: `url(${city.img})` }} id="landingCityTiles">
                             <GridListTileBar title={city.name} className={classes.TileBar}/>
                     </GridListTile>

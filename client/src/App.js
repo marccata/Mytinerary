@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Landing from './views/Landing.js';
 import Cities from './views/Cities.js';
@@ -8,28 +8,33 @@ import Itineraries from './views/Itineraries.js';
 import Activities from './components/Activities';
 import SignUp from './views/SignUp.js';
 import LogIn from './views/LogIn';
-import { registerUser } from './store/actions/usersActions.js';
+import { authenticateUser } from './store/actions/usersActions.js';
 import { connect } from 'react-redux';
-
 
 class App extends React.Component{
 
   constructor(props) {
     super(props);
     this.state = {
-      userToken: null
+      token: null,
+      userInfo: null
     };
-   //this.registerUser = this.registerUser.bind(this);
+    //this.authenticateUser = this.authenticateUser.bind(this);
   }
-  /*
+  
   componentDidMount(){
-    if (localStorage.getItem('userToken')) {  // IS AUTENTICATE
-      let userToken = localStorage.getItem('userToken')
-      this.props.registerUser(userToken);
+    let token = localStorage.getItem('userToken');
+
+    console.log(token)
+    console.log("from did mount app js")
+
+    if (token) {
+      this.props.authenticateUser(token);     
     }
   }
-  */
+  
   render(){
+    console.log(this.props.userInfo)
     return (
       <BrowserRouter>
         <div className="App">
@@ -50,9 +55,7 @@ class App extends React.Component{
 }
 
 const mapStateToProps = state => ({
-  token: state.logIn.token
+  userInfo: state.users.user
 })
 
-
-
-export default connect(mapStateToProps, { registerUser })(App)
+export default connect(mapStateToProps, { authenticateUser })(App)

@@ -10,19 +10,21 @@ import { REQUEST_LOGIN } from '../actions/types';
 import { POST_LOGIN } from '../actions/types';
 import { ERROR_LOGIN } from '../actions/types';
 
+import { REQUEST_LOGOUT } from '../actions/types';
+import { EXECUTE_LOGOUT } from '../actions/types';
+import { ERROR_LOGOUT } from '../actions/types';
 
 const initState = { 
     user: null,
     isLoading: false,
     error: null,
     isAuthenticated : false,
-    registerUser:[],
-    token: null,
+    token: null
 };
 
-// TODO this reducer/action can be improved so at sign up you're already logged in also
-export function signUpReducer(state = initState, action) {
+export default function usersReducer(state = initState, action) {
     switch (action.type) {
+        // SIGN UP
         case REQUEST_NEWUSER:
             return {
                 ...state,
@@ -42,42 +44,29 @@ export function signUpReducer(state = initState, action) {
                 error: action.error.message,
                 isLoading: false,
             };
-        default:
-            return state 
-    }
-}
 
-export default function logInReducer(state = initState, action) {
-    switch (action.type) {
+        // LOGIN
         case REQUEST_LOGIN:
             return {
                 ...state,
-                isLoading: true,
-                isAuthenticated: false
+                isLoading: true
             };
         case POST_LOGIN:
             return {
                 ...state,
                 error: null,
                 token: action.payload,
-                isLoading: false,
-                isAuthenticated: true
+                isLoading: false
             };
         case ERROR_LOGIN:
             console.log("ERROR ATTEMPTING TO LOG IN", action);
             return {
                 ...state,
                 error: action.error.message,
-                isLoading: false,
-                isAuthenticated: false
+                isLoading: false
             };
-        default:
-            return state 
-    }
-}
 
-export function userAuthReducer(state = initState, action) {
-    switch (action.type) {
+        // USER AUTHENTICATION
         case REQUEST_USERAUTH:
             return {
                 ...state,
@@ -88,7 +77,7 @@ export function userAuthReducer(state = initState, action) {
             return {
                 ...state,
                 error: null,
-                registerUser: action.payload,
+                user: action.payload,
                 isLoading: false,
                 isAuthenticated: true
             };
@@ -100,6 +89,30 @@ export function userAuthReducer(state = initState, action) {
                 isLoading: false,
                 isAuthenticated: false
             };
+
+        // USER LOGOUT
+        case REQUEST_LOGOUT:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case EXECUTE_LOGOUT:  
+            return {
+                ...state,
+                error: null,
+                user: null,
+                isLoading: false,
+                isAuthenticated: false,
+                token: null
+            };
+        case ERROR_LOGOUT:
+            console.log("ERROR MAKING LOGOUT", action);
+            return {
+                ...state,
+                error: action.error.message,
+                isLoading: false,
+            };
+
         default:
             return state 
     }

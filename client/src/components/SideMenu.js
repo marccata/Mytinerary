@@ -1,5 +1,5 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Fragment } from 'react';
+import { withStyles } from "@material-ui/core/styles";
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -7,9 +7,12 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {Link} from 'react-router-dom';
 import BackButton from './BackButton';
+import { connect } from 'react-redux';
+import { authenticateUser } from '../store/actions/usersActions.js';
+import { logOutUser } from '../store/actions/usersActions.js';
 
 
-const useStyles = makeStyles({
+const styles = {
   list: {
     width: 250,
   },
@@ -39,11 +42,35 @@ const useStyles = makeStyles({
     borderRadius: '20px',
 
   }
-});
+};
 
-export default function TemporaryDrawer() {
+class SideMenu extends React.Component {
 
-  const classes = useStyles();
+  constructor(props) {
+    super(props);
+    this.state = {
+      top: false,
+      left: false,
+      bottom: false,
+      right: false,
+      isAuthenticated: 'false'
+    };
+//    this.isAuthenticated = this.isAuthenticated.bind(this);
+  }
+  
+  toggleDrawer = (side, open) => event => {
+
+    console.log('clicked menu');
+
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    this.setState({ ...this.state, [side]: open });
+
+  };
+
+  /* BACKUP
 
   const [state, setState] = React.useState({
     top: false,
@@ -52,57 +79,93 @@ export default function TemporaryDrawer() {
     right: false,
   });
 
-  const toggleDrawer = (side, open) => event => {
+  toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setState({ ...state, [side]: open });
   };
 
-  const sideList = side => (
-    <div
-      className={classes.list}
-      role="presentation"
-      onClick={toggleDrawer(side, false)}
-      onKeyDown={toggleDrawer(side, false)}
-      key="box"
-    >
-      <List key="list">
-          <ListItem button key='Landing'>
-            <Link to="/" className={classes.link} key='LandingInner'>
-              Landing
-            </Link>        
-          </ListItem>
-          <ListItem button key='Cities'>
-            <Link to="/cities" className={classes.link} key='CitiesInner'>
-              Cities
-            </Link>           
-          </ListItem>
-          <ListItem button key='Sign Up'>
-            <Link to="/signup" className={classes.link} key='SignUpInner'>
+  */
+
+  render(){
+    authenticateUser()
+    console.log('Is the user auth?')
+    console.log(this.props.isAuthenticated)
+
+    const { classes } = this.props;
+
+    // Show login+signup buttons if any user logged, or signout if logged
+    if (this.props.isAuthenticated == false){
+      var optionalLinks = (
+        <Fragment>
+          <ListItem button key='SignUpInner'>
+            <Link to="/signup" className={classes.link}>
               Sign Up
             </Link>           
           </ListItem>
-          <ListItem button key='Sign Up'>
-            <Link to="/login" className={classes.link} key='LogInInner'>
+          <ListItem button  key='LogInInner'>
+            <Link to="/login" className={classes.link}>
               Log In
             </Link>           
           </ListItem>
-      </List>
-    </div>
-  );
+        </Fragment>
+      )
+    } else {
+      var optionalLinks = (
+        <Fragment>
+          <ListItem button key='Log Out' onClick={()=>this.props.logOutUser()}>
+            <Link to="/" className={classes.link}>
+              Log Out
+            </Link>           
+          </ListItem>
+        </Fragment>
+      )
+    }
 
-  return (
-    <div className={classes.header} key="main">
-      <IconButton onClick={toggleDrawer('left', true)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-        <MenuIcon className={classes.menuIcon}/>
-      </IconButton>
-      <BackButton />
-      <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
-        {sideList('left')}
-      </Drawer>
-    </div>
-  );
+    const sideList = side => (
+      <div
+        className={classes.list}
+        role="presentation"
+        onClick={this.toggleDrawer(side, false)}
+        onKeyDown={this.toggleDrawer(side, false)}
+        key="box"
+      >
+        <List key="list">
+            <ListItem button key='Landing'>
+              <Link to="/" className={classes.link} key='LandingInner'>
+                Landing
+              </Link>        
+            </ListItem>
+            <ListItem button key='Cities'>
+              <Link to="/cities" className={classes.link} key='CitiesInner'>
+                Cities
+              </Link>           
+            </ListItem>
+            {optionalLinks}
+        </List>
+      </div>
+    );
+    
+    return (
+      <div className={classes.header} key="main">
+        <IconButton onClick={this.toggleDrawer('left', true)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <MenuIcon className={classes.menuIcon}/>
+        </IconButton>
+        <BackButton />
+        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)} >
+          {sideList('left')}
+        </Drawer>
+      </div>
+    )
+  }
   
 }
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.users.isAuthenticated
+})
+
+const mapDispatchToProps = { authenticateUser, logOutUser }
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SideMenu))

@@ -79,8 +79,8 @@ class SignUp extends Component {
             Sign up
           </Typography>
           <form className={classes.form} noValidate>
-            <Grid container spacing={2} key="email">
-              <Grid item xs={12}>
+            <Grid container spacing={2} >
+              <Grid item xs={12} key="email">
                 <TextField
                   variant="outlined"
                   required
