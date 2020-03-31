@@ -5,6 +5,7 @@ import Cities from './views/Cities.js';
 import './css/style.css';
 import SideMenu from './components/SideMenu.js';
 import Itineraries from './views/Itineraries.js';
+import ItinerariesComments from './views/ItinerariesComments.js';
 import Activities from './components/Activities';
 import SignUp from './views/SignUp.js';
 import LogIn from './views/LogIn';
@@ -35,7 +36,7 @@ class App extends React.Component{
   
   render(){
     console.log(this.props.userInfo)
-    return (
+    return ( // TODO OJO ADD ITINERARY ID ALS COMMENTS!
       <BrowserRouter>
         <div className="App">
           <SideMenu />
@@ -43,6 +44,7 @@ class App extends React.Component{
             <Route exact path='/' component={Landing} />
             <Route exact path='/cities' component={Cities} />
             <Route exact path='/itineraries/:city_id' component={Itineraries} />
+            <Route exact path='/itinerariescomments/:itinerary_id' component={ItinerariesComments} /> 
             <Route exact path='/activities/:itinerary_id' component={Activities} />
             <Route exact path='/login' component={LogIn} />
             <Route exact path='/signup' component={SignUp} />

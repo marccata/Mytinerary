@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getItineraries } from '../store/actions/itinerariesActions';
 import { withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -14,6 +15,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Activities from '../components/Activities';
+import {Link} from 'react-router-dom';
+
 
 const styles = theme => ({
     root: {
@@ -110,6 +113,7 @@ class Itineraries extends Component {
     render() {        
         let itineraries = this.props.itineraries;
         const { classes } = this.props;
+        console.log(this.props.itineraries)
        
         const itineraryCard = this.props.itineraries.map((itinerary, i) => {
             return(
@@ -156,6 +160,9 @@ class Itineraries extends Component {
                             <Activities itinerary_id={itinerary._id}/>
                         </ul>
                     </div>
+                    <Button variant="contained" color="primary" disableElevation>
+                        <Link  to={"/itinerariescomments/" + itinerary._id}>See comments</Link>
+                    </Button>
                     </CardContent>
                 </Collapse>
                 </Card>
