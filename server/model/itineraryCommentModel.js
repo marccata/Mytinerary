@@ -2,11 +2,13 @@ const mongoose = require('mongoose')
 
 const itineraryCommentSchema = new mongoose.Schema({
     itinerary_id: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'itinerary',
         required: true
     },
     user_id: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
         required: true
     },
     comment: {

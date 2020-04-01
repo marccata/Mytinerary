@@ -17,7 +17,7 @@ import { EXECUTE_LOGOUT } from './types';
 import { ERROR_LOGOUT } from './types';
 
 // TODO this reducer/action can be improved so at sign up you're already logged in also
-export function postUser(userEmail, userPassword, userUser_img) {
+export function postUser(userEmail, userPassword, userUser_img, userName) {
     return function(dispatch){
 
         dispatch({type:REQUEST_NEWUSER})
@@ -25,7 +25,8 @@ export function postUser(userEmail, userPassword, userUser_img) {
         axios.post('/api/users/', {
             email: userEmail,
             password: userPassword,
-            user_img: userUser_img
+            user_img: userUser_img,
+            name: userName
         })
         
         .then(res => {
@@ -91,15 +92,15 @@ export function authenticateUser(userToken) {
 }
 
 export const logOutUser = () => (dispatch) => {
-        dispatch({type:REQUEST_LOGOUT})
-        console.log('log out user action called')
-        try {
-            dispatch({type:EXECUTE_LOGOUT, payload: 'prueba'});
-            console.log('Local storage is empty now and user logged out');
-            //Empty local storage
-            localStorage.clear();
-       }
-       catch (error) {
-       dispatch({type:ERROR_LOGOUT, error: error})
-       } 
+    dispatch({type:REQUEST_LOGOUT})
+    console.log('log out user action called')
+    try {
+        dispatch({type:EXECUTE_LOGOUT, payload: 'prueba'});
+        console.log('Local storage is empty now and user logged out');
+        //Empty local storage
+        localStorage.clear();
+    }
+    catch (error) {
+    dispatch({type:ERROR_LOGOUT, error: error})
+    } 
 }

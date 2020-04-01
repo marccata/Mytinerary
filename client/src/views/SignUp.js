@@ -37,20 +37,22 @@ const styles = theme => ({
 class SignUp extends Component {
 
   constructor(props) {
-      super(props);
-      this.state = {
-          userEmail: '',
-          userPassword: '',
-          userImg: ''
-      };
-      this.changeEmail = this.changeEmail.bind(this);
-      this.changePassword = this.changePassword.bind(this);
-      this.changeImg = this.changeImg.bind(this);
+    super(props);
+    this.state = {
+      userEmail: '',
+      userPassword: '',
+      userImg: '',
+      userName: ''
+    };
+    this.changeEmail = this.changeEmail.bind(this);
+    this.changePassword = this.changePassword.bind(this);
+    this.changeImg = this.changeImg.bind(this);
+    this.changeName = this.changeName.bind(this);
   }
 
   // ON SUBMIT ACTIONS
-  submitUser(userEmail, userPassword, userImg) {
-    this.props.postUser(userEmail, userPassword, userImg);
+  submitUser(userEmail, userPassword, userImg, userName) {
+    this.props.postUser(userEmail, userPassword, userImg, userName);
     this.props.history.push('/login')
   }
 
@@ -63,6 +65,9 @@ class SignUp extends Component {
   }
   changeImg(event) {
     this.setState({userImg: event.target.value});
+  }
+  changeName(event) {
+    this.setState({userName: event.target.value});
   }
 
   render() {
@@ -80,6 +85,20 @@ class SignUp extends Component {
           </Typography>
           <form className={classes.form} noValidate>
             <Grid container spacing={2} >
+            <Grid item xs={12} key="username">
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="name"
+                  label="Name"
+                  name="name"
+                  autoComplete="name"
+                  value={this.state.userName} 
+                  onChange={this.changeName}
+                  autoFocus
+                />
+              </Grid>
               <Grid item xs={12} key="email">
                 <TextField
                   variant="outlined"
@@ -126,7 +145,7 @@ class SignUp extends Component {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={() => { this.submitUser(this.state.userEmail, this.state.userPassword, this.state.userImg) }}
+              onClick={() => { this.submitUser(this.state.userEmail, this.state.userPassword, this.state.userImg, this.state.userName) }}
             >
               Sign Up
             </Button>

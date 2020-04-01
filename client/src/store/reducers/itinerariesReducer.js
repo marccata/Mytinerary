@@ -1,16 +1,14 @@
-import { REQUEST_ITINERARIES } from '../actions/types';
-import { GET_ITINERARIES } from '../actions/types';
-import { ERROR_ITINERARIES } from '../actions/types';
+import { REQUEST_ITINERARIES, GET_ITINERARIES, ERROR_ITINERARIES } from '../actions/types';
 
-import { REQUEST_ITINERARIES_COMMENTS } from '../actions/types';
-import { GET_ITINERARIES_COMMENTS } from '../actions/types';
-import { ERROR_ITINERARIES_COMMENTS } from '../actions/types';
+import { REQUEST_ITINERARIES_COMMENTS, GET_ITINERARIES_COMMENTS, ERROR_ITINERARIES_COMMENTS } from '../actions/types';
 
+import { REQUEST_CURRENT_IT, SET_CURRENT_IT, ERROR_CURRENT_IT } from '../actions/types';
 
 const initState = {
     itineraries:[],
     isLoading: false,
-    error: null
+    error: null,
+    currentItinerary: null
 };
 
 export default function itinerariessReducer(state = initState, action) {

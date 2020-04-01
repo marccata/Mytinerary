@@ -10,6 +10,10 @@ const newUserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    name: {
+        type: String,
+        required: true
+    },
     user_img: {
         type: String,
     }

@@ -14,7 +14,8 @@ router.post('/', [check('email').isEmail()], (req, res) => { //THE CHECK EMAIL P
     let newUser = new User({
         email: req.body.email,
         password: req.body.password,
-        user_img: req.body.user_img
+        user_img: req.body.user_img,
+        name: req.body.name
     })
 
     //THIS IS THE ERROR ALERT FROM EXPRESS VALIDATOR IN CASE THAT EMAIL IS NOT AN EMAIL

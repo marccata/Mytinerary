@@ -77,6 +77,22 @@ const styles = theme => ({
         width: '150px',
         height: '150px',
         marginRight: '14px',
+    },
+    button: {
+        backgroundColor: '#014FEC',
+        borderRadius: '20px',
+        padding: '0px',
+        marginBottom: '16px'
+    },
+    buttonInner: {
+        fontSize: '16px !important;',
+        textAlign: 'center',
+        lineHeight: '20px',
+        padding: '0px',
+        fontWeight: 300,
+        color: 'white',
+        textTransform: 'none !important',
+        padding: '10px 16px'
     }
   });
   
@@ -95,11 +111,10 @@ class Itineraries extends Component {
         this.props.getItineraries(this.props.match.params.city_id)
     }
     
-    UNSAFE_componentWillReceiveProps(nextProps){ //QUE ES ESTO DE NEXT PROPS Y 'WILL RECIEVE MOUNT' =O (andrei haha)
+    UNSAFE_componentWillReceiveProps(nextProps){
         if(nextProps.itineraries !== this.props.itineraries){
             this.setState({
                 itineraries: nextProps.itineraries
-                //TODO REVIEW THIS NEXT PROPS AND SEE WHY IS PROPS ON CARD RENDER AND NOT STATE.
             })
         }
     }
@@ -121,7 +136,7 @@ class Itineraries extends Component {
                 <CardHeader
                     avatar={
                     <Avatar aria-label="recipe" className={classes.avatar} style={{ backgroundImage: `url(${itinerary.user_img === "" ? null : itinerary.user_img})` }}>
-                        {itinerary.user_img === "" ? itinerary.user.charAt(0) : ' '}
+                        {itinerary.user_img === "" ? itinerary.user.charAt(0).toUpperCase() : ' '}
                     </Avatar>
                     }
                     title={itinerary.title}
@@ -160,8 +175,8 @@ class Itineraries extends Component {
                             <Activities itinerary_id={itinerary._id}/>
                         </ul>
                     </div>
-                    <Button variant="contained" color="primary" disableElevation>
-                        <Link  to={"/itinerariescomments/" + itinerary._id}>See comments</Link>
+                    <Button className={classes.button} disableElevation>
+                        <Link  to={"/itinerariescomments/" + itinerary._id} className={classes.buttonInner}>See comments</Link>
                     </Button>
                     </CardContent>
                 </Collapse>

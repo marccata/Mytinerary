@@ -47,7 +47,7 @@ router.get('/bycity/:city_id',
     (req, res) => {
         let cityRequested = req.params.city_id;
         itineraryModel.find({city_id:cityRequested})
-            .populate('city_id')
+            .populate('city_id') //TODO populate with less things, not everything is needed here and a lot of data is duplicated
             .exec((err, files) => {
                 console.log(files);
                 res.send(files)
