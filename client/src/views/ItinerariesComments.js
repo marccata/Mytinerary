@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { getItinerariesComments, setCurrentItinerary } from '../store/actions/itinerariesActions';
+import { getItinerariesComments, postItineraryComment } from '../store/actions/itinerariesActions';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -9,8 +9,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
-import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import {Link} from 'react-router-dom';
 
 
 const styles = theme => ({
@@ -53,6 +53,30 @@ const styles = theme => ({
         fontSize: '16px !important;',
         lineHeight: '20px',
         fontWeight: 300,
+        padding: '8px 16px',
+        "&:hover": {
+            backgroundColor: 'black'
+        }
+    },
+    buttonLogIn: {
+        backgroundColor: 'grey',
+        borderRadius: '20px',
+        marginBottom: '40px',
+        color: 'white',
+        marginTop: '25px',
+        textTransform: 'none',
+        fontSize: '16px !important;',
+        lineHeight: '20px',
+        fontWeight: 300,
+        padding: '8px 16px',
+        textAlign: 'center',
+        "&:hover": {
+            backgroundColor: 'black'
+        }
+    },
+    buttonLogInInner: {
+        color: 'white',
+        textDecoration: 'none'
     }
 })
   
@@ -61,15 +85,19 @@ class ItinerariesComments extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            itinerariesComments: []
+            itinerariesComments: [],
+            newComment: "",
+            itineraryId: "",
+            isAuthenticated: true //TODO OJO
         };
+        this.updateComment = this.updateComment.bind(this);
     }
 
     componentDidMount(){
-        var path = window.location.pathname;
-        var itineraryId = path.split("/").pop();
+        var itineraryId = this.props.match.params.itinerary_id;
         this.props.getItinerariesComments(itineraryId);
-        //this.props.getItinerariesComments(this.props.match.params.itinerary_id);
+        this.setState({ itineraryId: itineraryId })
+        //this.setState({ isAuthenticated: isAuthenticated })
     }
 
     UNSAFE_componentWillReceiveProps(nextProps){
@@ -81,9 +109,19 @@ class ItinerariesComments extends Component {
         }
     }
 
+    // ONCHANGE EVENTS FOR INPUT FIELD - UPDATES STATE
+    updateComment(event) { this.setState({newComment: event.target.value}); console.log(this.state.itineraryId, this.props.userInfo.user_id, this.state.newComment, 'today') }
+
+    submitComment(itineraryId, userId, newComment, time) {
+        console.log(itineraryId, userId, newComment, time);
+        this.props.postItineraryComment(itineraryId, userId, newComment, time);
+        this.setState({ newComment: "" })
+    }
+
     render() {        
         const { classes } = this.props;
-        console.log(this.state.itinerariesComments)
+        console.log(this.props);
+        var commentInput = "";
 
         if (this.state.itinerariesComments.length > 0) {
             var comments = this.state.itinerariesComments.map((itineraryComment, i) => {
@@ -108,8 +146,38 @@ class ItinerariesComments extends Component {
                     </Fragment>
                 )
             })
+        } else {var comments = null}
+
+        if (this.props.isAuthenticated === true){
+            var commentInput = (
+                <Fragment>
+                    <TextField
+                    id="outlined-multiline-static"
+                    label="Leave your comment"
+                    multiline
+                    rows="4"
+                    variant="outlined"
+                    className={classes.inputField}
+                    value={this.state.newComment} 
+                    onChange={this.updateComment}
+                    />
+                    <Button 
+                    className={classes.button} 
+                    disableElevation     
+                    onClick={() => { this.submitComment(this.state.itineraryId, this.props.userInfo._id, this.state.newComment, 'today') }}
+                    >
+                        Submit comment
+                    </Button>
+                </Fragment>
+            )
         } else {
-            var comments = null
+            var commentInput = (
+                <div className={classes.buttonLogIn}>
+                    <Link to="/login" className={classes.buttonLogInInner}>
+                    Log In to leave a comment
+                    </Link>
+                </div>
+            )
         }
 
         return (
@@ -121,18 +189,7 @@ class ItinerariesComments extends Component {
                     <p className={classes.itineraryTitle}>This itinerary has no comments.<br/> You can make the first one!</p> 
                     : comments}
                 </List>
-                <TextField
-                    id="outlined-multiline-static"
-                    label="Leave your comment"
-                    multiline
-                    rows="4"
-                    defaultValue=" "
-                    variant="outlined"
-                    className={classes.inputField}
-                />
-                <Button className={classes.button} disableElevation>
-                    Send comment
-                </Button>
+                {commentInput}
             </div>
         )
     }
@@ -141,8 +198,10 @@ class ItinerariesComments extends Component {
 
 const mapStateToProps = state => ({
     itinerariesComments: state.itineraries.itinerariesComments,
+    userInfo: state.users.user,
+    isAuthenticated: state.users.isAuthenticated
 })
 
-const mapDispatchToProps = { getItinerariesComments }
+const mapDispatchToProps = { getItinerariesComments, postItineraryComment }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ItinerariesComments))

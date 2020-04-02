@@ -80,8 +80,7 @@ export function authenticateUser(userToken) {
         .then(res => {
             dispatch({type:POST_USERAUTH, payload: res.data});
             //localStorage.setItem("userInfo", JSON.stringify(res.data)) //TODO Not sure if this is needed
-            console.log('the following user is logged in');
-            console.log(res.data.email);
+            console.log(res.data.email + ' IS LOGGED IN');
         })
         .catch( error => {
             dispatch({type:ERROR_USERAUTH, error: error})

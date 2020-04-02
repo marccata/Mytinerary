@@ -18,8 +18,6 @@ router.post('/', (req, res) => {
         password: req.body.password,
     }
 
-    console.log(logInUser);
-
     User.findOne({ email : logInUser.email }) 
     .then(existingUser => {
         if(!existingUser) res.status(400).json({msg: 'Wrong user'})

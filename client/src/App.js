@@ -20,15 +20,10 @@ class App extends React.Component{
       token: null,
       userInfo: null
     };
-    //this.authenticateUser = this.authenticateUser.bind(this);
   }
   
   componentDidMount(){
     let token = localStorage.getItem('userToken');
-
-    console.log(token)
-    console.log("from did mount app js")
-
     if (token) {
       this.props.authenticateUser(token);     
     }

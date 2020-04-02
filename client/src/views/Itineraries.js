@@ -88,7 +88,6 @@ const styles = theme => ({
         fontSize: '16px !important;',
         textAlign: 'center',
         lineHeight: '20px',
-        padding: '0px',
         fontWeight: 300,
         color: 'white',
         textTransform: 'none !important',

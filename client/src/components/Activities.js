@@ -32,7 +32,7 @@ class Activities extends Component {
         const activityCard = this.props.activities.map((activity, i) => {
             return(
                 <GridListTile className={classes.activitiesTiles} key={i}>
-                    <img src={activity.img}/>
+                    <img src={activity.img} alt={activity.title}/>
                     <GridListTileBar title={activity.title} />
                 </GridListTile>
             )

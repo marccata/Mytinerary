@@ -9,7 +9,13 @@ import { Link as RouterLink } from 'react-router-dom';
 const useStyles = {
   root: {
     maxWidth: 345,
-    flexGrow: 1
+    flexGrow: 1,
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    borderRadius: '12px !important'
   },
 };
 
@@ -21,7 +27,7 @@ class CityCard extends React.Component {
     return (
       <Grid container item xs={12}  className="cityCard">
         <RouterLink to={"/itineraries/" + this.props.city._id}>
-          <Card className={classes.root} className="cityCardInner" style={{ backgroundImage: `url(${this.props.city.img})` }}  >
+          <Card className={classes.root} style={{ backgroundImage: `url(${this.props.city.img})` }}  >
             <CardActionArea>
               <h3 className="cardTitle">{this.props.city.name}</h3>
             </CardActionArea>

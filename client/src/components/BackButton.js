@@ -9,7 +9,6 @@ const useStyles = {
     backgroundColor: 'white',
     height: '38px',
     width: '38px',
-    marginLeft: '0px',
     padding: '3px',
     border: '#E8E6DC solid 1px',
     marginLeft: '8px',

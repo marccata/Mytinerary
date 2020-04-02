@@ -70,4 +70,38 @@ router.get('/all',
             .catch(err => console.log(err));
 });
 
+//EDITING THIS
+/*
+router.post("/fav-itinerary/", (req, res) => {
+    
+    let newUser = new User({
+        user: req.body.user,
+        fav_itinerary: req.body.fav_itinerary,
+    })    
+
+    User.findById( req.user._id ) 
+        .then(existingUser => {
+
+            if(!existingUser) res.status(400).json({msg: 'Error: user does not exist'})
+            
+            // SI EL USUARIO EXISTE
+            if (existingUser) { 
+
+                fav_itinerary.save()
+                .then(fav_itinerary => {
+                    res.send(fav_itinerary)
+                })
+                .catch(err => {
+                    res.status(500).send("Error" + err)
+                })
+
+            }
+            // SI EL USUARIO NO EXISTE: ERROR
+            else res.status(500).send("This user doesn't exist")
+    
+        }
+    
+});
+*/
+
 module.exports = router

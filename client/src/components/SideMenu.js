@@ -55,7 +55,6 @@ class SideMenu extends React.Component {
       right: false,
       isAuthenticated: 'false'
     };
-//    this.isAuthenticated = this.isAuthenticated.bind(this);
   }
   
   toggleDrawer = (side, open) => event => {
@@ -70,33 +69,13 @@ class SideMenu extends React.Component {
 
   };
 
-  /* BACKUP
-
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
-
-  toggleDrawer = (side, open) => event => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setState({ ...state, [side]: open });
-  };
-
-  */
-
   render(){
     authenticateUser()
-    console.log('Is the user auth?')
-    console.log(this.props.isAuthenticated)
-
+    console.log('USER AUTHENTICATED? ' + this.props.isAuthenticated)
     const { classes } = this.props;
 
     // Show login+signup buttons if any user logged, or signout if logged
-    if (this.props.isAuthenticated == false){
+    if (this.props.isAuthenticated === false){
       var optionalLinks = (
         <Fragment>
           <ListItem button key='SignUpInner'>

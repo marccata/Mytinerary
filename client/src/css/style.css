@@ -122,15 +122,6 @@ font-size: 2.4rem !important;
     width: 100%;
 }
 
-.cityCardInner {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    background-position: center;
-    background-size: cover;
-    border-radius: 12px !important;
-}
-
 .cityCard .NoSearchResult {
     background-color: #E8E6DE !important;
     display: flex;

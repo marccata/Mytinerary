@@ -53,6 +53,7 @@ class LogIn extends Component {
   // AFTER LOG IN BUTTON IS CLICKED MAKE THIS
   logInUserButton(userEmail, userPassword) {
     this.props.logInUser(userEmail, userPassword);
+    this.props.history.push('/')
   }
 
   // ONCHANGE EVENTS FOR INPUT FIELDS - MAYBE THIS CAN BE SIMPLIFIED

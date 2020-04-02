@@ -16,7 +16,14 @@ const newUserSchema = new mongoose.Schema({
     },
     user_img: {
         type: String,
-    }
+    },
+    fav_itineraries: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'itinerary'
+        }
+      ]
+    
 })
 
 //name of module is the singular version (city) of the database name (cities)

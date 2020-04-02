@@ -1,12 +1,7 @@
 import axios from 'axios';
-
-import { REQUEST_ITINERARIES } from './types';
-import { GET_ITINERARIES } from './types';
-import { ERROR_ITINERARIES } from './types';
-
-import { REQUEST_ITINERARIES_COMMENTS } from './types';
-import { GET_ITINERARIES_COMMENTS } from './types';
-import { ERROR_ITINERARIES_COMMENTS } from './types';
+import { REQUEST_ITINERARIES, GET_ITINERARIES, ERROR_ITINERARIES } from './types';
+import { REQUEST_ITINERARIES_COMMENTS, GET_ITINERARIES_COMMENTS, ERROR_ITINERARIES_COMMENTS } from './types';
+import { REQUEST_NEWCOMMENT, POST_NEWCOMMENT, ERROR_NEWCOMMENT } from './types';
 
 export function getItineraries(cityId) {
     return function(dispatch){
@@ -34,5 +29,31 @@ export function getItinerariesComments(itineraryId) {
         .catch( error => {
             dispatch({type:ERROR_ITINERARIES_COMMENTS, error: error})
         });
+    }
+}
+
+export function postItineraryComment(itineraryId, userId, commentText, commentTime) {
+    return function(dispatch){
+
+        dispatch({type:REQUEST_NEWCOMMENT})
+
+        axios.post('/api/itinerariescomments/', {
+            itinerary_id: itineraryId,
+            user_id: userId,
+            comment: commentText,
+            time: commentTime
+        })
+        
+        .then(res => {
+            //dispatch({type:POST_NEWCOMMENT, payload: {itineraryId, userId, commentText, commentTime}});
+            dispatch(getItinerariesComments(itineraryId))
+            console.log('NEW COMMENT POSTED SUCCESSFULLY');
+            console.log(res.data);
+        })
+
+        .catch( error => {
+            dispatch({type:ERROR_NEWCOMMENT, error: error})
+        });
+
     }
 }
