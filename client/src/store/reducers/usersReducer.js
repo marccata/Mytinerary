@@ -1,25 +1,16 @@
-import { REQUEST_NEWUSER } from '../actions/types';
-import { POST_NEWUSER } from '../actions/types';
-import { ERROR_NEWUSER } from '../actions/types';
-
-import { REQUEST_USERAUTH } from '../actions/types';
-import { POST_USERAUTH } from '../actions/types';
-import { ERROR_USERAUTH } from '../actions/types';
-
-import { REQUEST_LOGIN } from '../actions/types';
-import { POST_LOGIN } from '../actions/types';
-import { ERROR_LOGIN } from '../actions/types';
-
-import { REQUEST_LOGOUT } from '../actions/types';
-import { EXECUTE_LOGOUT } from '../actions/types';
-import { ERROR_LOGOUT } from '../actions/types';
+import { REQUEST_NEWUSER, POST_NEWUSER, ERROR_NEWUSER } from '../actions/types';
+import { REQUEST_USERAUTH, POST_USERAUTH, ERROR_USERAUTH } from '../actions/types';
+import { REQUEST_LOGIN, POST_LOGIN, ERROR_LOGIN } from '../actions/types';
+import { REQUEST_LOGOUT, EXECUTE_LOGOUT, ERROR_LOGOUT } from '../actions/types';
+import { REQUEST_FAV_ITINERARY, EXECUTE_FAV_ITINERARY, ERROR_FAV_ITINERARY } from '../actions/types';
 
 const initState = { 
     user: null,
     isLoading: false,
     error: null,
     isAuthenticated : false,
-    token: null
+    token: null,
+    uselessItemForTest: null
 };
 
 export default function usersReducer(state = initState, action) {
@@ -107,6 +98,27 @@ export default function usersReducer(state = initState, action) {
             };
         case ERROR_LOGOUT:
             console.log("ERROR MAKING LOGOUT", action);
+            return {
+                ...state,
+                error: action.error.message,
+                isLoading: false,
+            };
+
+        // FAVOURITE ITINERARY
+        case REQUEST_FAV_ITINERARY:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case EXECUTE_FAV_ITINERARY:  
+            return {
+                ...state,
+                error: null,
+                //uselessItemForTest: action.payload, // TODO IS THIS NEEDED?
+                isLoading: false,
+            };
+        case ERROR_FAV_ITINERARY:
+            console.log("ERROR EXECUTING FAVOURITE ITINERARY", action);
             return {
                 ...state,
                 error: action.error.message,

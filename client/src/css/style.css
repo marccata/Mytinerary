@@ -177,3 +177,10 @@ font-size: 2.4rem !important;
 #emptyMessageInner, #emptyMessageBox {
     height: 0px;
 }
+
+#itinerariesPage .MuiCardHeader-action {
+    margin-top: 0px !important;
+    margin-right: 0px !important;
+    max-width: 40px;
+    max-height: 40px;
+}

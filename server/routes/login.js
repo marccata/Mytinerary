@@ -36,7 +36,7 @@ router.post('/', (req, res) => {
                         id: existingUser._id
                     }
 
-                    const options = {expiresIn: 2592000};
+                    const options = {expiresIn: (12 * 60 * 60 * 1000)};
                     
                     // SI LA CONTRASEÑA ES OK, CREA EL TOKEN
                     jwt.sign(

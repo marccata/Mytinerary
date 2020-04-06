@@ -10,6 +10,8 @@ import BackButton from './BackButton';
 import { connect } from 'react-redux';
 import { authenticateUser } from '../store/actions/usersActions.js';
 import { logOutUser } from '../store/actions/usersActions.js';
+import PersonIcon from '@material-ui/icons/Person';
+import Divider from '@material-ui/core/Divider';
 
 
 const styles = {
@@ -21,7 +23,10 @@ const styles = {
   },
   header: {
     position: 'fixed',
-    padding: '20px'
+    padding: '20px',
+    width: 'calc(100% - 40px)',
+    display: 'flex',
+    flexGrow: '0'
   },
   menuButton: {
     backgroundColor: 'white',
@@ -41,6 +46,27 @@ const styles = {
     textDecoration: 'none',
     borderRadius: '20px',
 
+  },
+  userButton: {
+    backgroundColor: 'white',
+    height: '38px',
+    width: '38px',
+    marginLeft: 'auto',
+    padding: '3px',
+    border: '#E8E6DC solid 1px',
+    fontSize: '2rem !important',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    '&:hover': {
+      backgroundColor: 'white',
+    }
+  },
+  logInBox: {
+    margin: '16px'
+  },
+  divider: {
+    marginTop: '10px',
+    marginBottom: '10px'
   }
 };
 
@@ -53,9 +79,18 @@ class SideMenu extends React.Component {
       left: false,
       bottom: false,
       right: false,
-      isAuthenticated: 'false'
+      isAuthenticated: 'false',
+      userInfo: null
     };
   }
+
+  UNSAFE_componentWillReceiveProps(nextProps){
+    if(nextProps.userInfo !== this.props.userInfo){
+        this.setState({
+            userInfo: nextProps.userInfo
+        })
+    }
+}
   
   toggleDrawer = (side, open) => event => {
 
@@ -72,6 +107,8 @@ class SideMenu extends React.Component {
   render(){
     authenticateUser()
     console.log('USER AUTHENTICATED? ' + this.props.isAuthenticated)
+    if(this.props.userInfo){
+      console.log(this.props.userInfo.name)}
     const { classes } = this.props;
 
     // Show login+signup buttons if any user logged, or signout if logged
@@ -93,6 +130,14 @@ class SideMenu extends React.Component {
     } else {
       var optionalLinks = (
         <Fragment>
+          <div className={classes.logInBox}>
+            <p>You are logged in as</p>
+            <p>{this.props.userInfo.name}</p>
+            <IconButton className={classes.userButton} color="inherit" aria-label="menu"  style={{ backgroundImage: `url(${this.props.userInfo && this.props.userInfo.user_img !== '' ? this.props.userInfo.user_img : null})` }}>
+            {this.props.userInfo && this.props.userInfo.user_img == '' || this.props.isAuthenticated === false? <PersonIcon className={classes.menuIcon}/> : null}
+            </IconButton>
+          </div>
+          <Divider className={classes.divider}/>
           <ListItem button key='Log Out' onClick={()=>this.props.logOutUser()}>
             <Link to="/" className={classes.link}>
               Log Out
@@ -121,6 +166,7 @@ class SideMenu extends React.Component {
                 Cities
               </Link>           
             </ListItem>
+            <Divider className={classes.divider}/>
             {optionalLinks}
         </List>
       </div>
@@ -132,6 +178,9 @@ class SideMenu extends React.Component {
           <MenuIcon className={classes.menuIcon}/>
         </IconButton>
         <BackButton />
+        <IconButton onClick={this.toggleDrawer('left', true)} edge="start" className={classes.userButton} color="inherit" aria-label="menu"  style={{ backgroundImage: `url(${this.props.userInfo && this.props.userInfo.user_img !== '' ? this.props.userInfo.user_img : null})` }}>
+          {this.props.userInfo && this.props.userInfo.user_img == '' || this.props.isAuthenticated === false? <PersonIcon className={classes.menuIcon}/> : null}
+        </IconButton>
         <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)} >
           {sideList('left')}
         </Drawer>
@@ -142,7 +191,8 @@ class SideMenu extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.users.isAuthenticated
+  isAuthenticated: state.users.isAuthenticated,
+  userInfo: state.users.user
 })
 
 const mapDispatchToProps = { authenticateUser, logOutUser }

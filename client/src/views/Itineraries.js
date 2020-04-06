@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getItineraries } from '../store/actions/itinerariesActions';
+import { favItinerary } from '../store/actions/usersActions';
 import { withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
@@ -16,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Activities from '../components/Activities';
 import {Link} from 'react-router-dom';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 
 const styles = theme => ({
@@ -92,7 +94,14 @@ const styles = theme => ({
         color: 'white',
         textTransform: 'none !important',
         padding: '10px 16px'
-    }
+    },
+    favIcon: {
+        marginTop: '0px !important',
+        marginRight: '0px !important'      
+    },
+    favIconMarked: {
+        color: 'red'
+    }  
   });
   
 class Itineraries extends Component {
@@ -127,7 +136,6 @@ class Itineraries extends Component {
     render() {        
         let itineraries = this.props.itineraries;
         const { classes } = this.props;
-        console.log(this.props.itineraries)
        
         const itineraryCard = this.props.itineraries.map((itinerary, i) => {
             return(
@@ -140,6 +148,17 @@ class Itineraries extends Component {
                     }
                     title={itinerary.title}
                     subheader={'By ' + itinerary.user}
+                    action={
+                        <IconButton aria-label="add to favorites" onClick={()=>this.props.favItinerary(itinerary._id)} className={classes.favIcon}>
+                            <FavoriteIcon 
+                            /* 
+                            className={
+                                if(active){classes.favIconMarked}
+                            }
+                            */
+                            />
+                        </IconButton>
+                    }
                 />
                 <CardMedia
                     className={classes.media}
@@ -184,7 +203,7 @@ class Itineraries extends Component {
         });
         
         return (
-        <div>
+        <div id="itinerariesPage">
             <div id="itineraryCityImg" style={{ backgroundImage: `url(${itineraries.length > 0 ? itineraries[0].city_id.img : null})` }} > 
                 <h3 className="cardTitle">
                     {itineraries.length > 0 ? itineraries[0].city_id.name : null}
@@ -200,9 +219,9 @@ class Itineraries extends Component {
 } 
 
 const mapStateToProps = state => ({
-    itineraries: state.itineraries.itineraries,
+    itineraries: state.itineraries.itineraries
 })
 
-const mapDispatchToProps = { getItineraries }
+const mapDispatchToProps = { getItineraries, favItinerary }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Itineraries))

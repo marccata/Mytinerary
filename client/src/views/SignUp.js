@@ -53,7 +53,7 @@ class SignUp extends Component {
   // ON SUBMIT ACTIONS
   submitUser(userEmail, userPassword, userImg, userName) {
     this.props.postUser(userEmail, userPassword, userImg, userName);
-    this.props.history.push('/login')
+    this.props.history.push('/')
   }
 
   // ONCHANGE EVENTS FOR INPUT FIELDS

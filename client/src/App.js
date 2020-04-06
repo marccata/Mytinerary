@@ -30,7 +30,7 @@ class App extends React.Component{
   }
   
   render(){
-    console.log(this.props.userInfo)
+    console.log(this.state.userInfo)
     return ( // TODO OJO ADD ITINERARY ID ALS COMMENTS!
       <BrowserRouter>
         <div className="App">

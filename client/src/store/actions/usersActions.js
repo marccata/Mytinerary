@@ -1,20 +1,10 @@
 import axios from 'axios';
 
-import { REQUEST_NEWUSER } from './types';
-import { POST_NEWUSER } from './types';
-import { ERROR_NEWUSER } from './types';
-
-import { REQUEST_LOGIN } from './types';
-import { POST_LOGIN } from './types';
-import { ERROR_LOGIN } from './types';
-
-import { REQUEST_USERAUTH } from './types';
-import { POST_USERAUTH } from './types';
-import { ERROR_USERAUTH } from './types';
-
-import { REQUEST_LOGOUT } from './types';
-import { EXECUTE_LOGOUT } from './types';
-import { ERROR_LOGOUT } from './types';
+import { REQUEST_NEWUSER, POST_NEWUSER, ERROR_NEWUSER } from './types';
+import { REQUEST_LOGIN, POST_LOGIN, ERROR_LOGIN } from './types';
+import { REQUEST_USERAUTH, POST_USERAUTH, ERROR_USERAUTH } from './types';
+import { REQUEST_LOGOUT, EXECUTE_LOGOUT, ERROR_LOGOUT } from './types';
+import { ERROR_FAV_ITINERARY, EXECUTE_FAV_ITINERARY, REQUEST_FAV_ITINERARY } from './types';
 
 // TODO this reducer/action can be improved so at sign up you're already logged in also
 export function postUser(userEmail, userPassword, userUser_img, userName) {
@@ -33,6 +23,7 @@ export function postUser(userEmail, userPassword, userUser_img, userName) {
             dispatch({type:POST_NEWUSER, payload: res.data});
             console.log('POST USER WORKED');
             console.log(res.data);
+            dispatch(logInUser(userEmail, userPassword));
         })
 
         .catch( error => {
@@ -70,6 +61,7 @@ export function logInUser(userEmail, userPassword) {
 export function authenticateUser(userToken) {
     return function(dispatch){
 
+        console.log(userToken)
         dispatch({type:REQUEST_USERAUTH})
 
         axios.get('/api/users/auth/', {
@@ -102,4 +94,29 @@ export const logOutUser = () => (dispatch) => {
     catch (error) {
     dispatch({type:ERROR_LOGOUT, error: error})
     } 
+}
+
+export function favItinerary(itineraryId) {
+    return function(dispatch){
+
+        console.log(itineraryId) // THIS IS OK
+        console.log(localStorage.getItem('userToken'))
+        dispatch({type:REQUEST_FAV_ITINERARY})
+
+        axios.put('/api/users/fav-itinerary/' + itineraryId, {
+            headers:{
+                Authorization: 'Bearer ' + localStorage.getItem('userToken') // TODO sería mejor pasarle el token pero con esto debería funcionar
+            }
+        })
+        
+        .then(res => {
+            dispatch({type:EXECUTE_FAV_ITINERARY, payload: res.data});
+            console.log('FAV ITINERARY ADD/REMOVE WORKED');
+        })
+
+        .catch( error => {
+            dispatch({type:ERROR_FAV_ITINERARY, error: error})
+        });
+
+    }
 }

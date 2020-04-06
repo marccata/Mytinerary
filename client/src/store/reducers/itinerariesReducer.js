@@ -20,7 +20,6 @@ export default function itinerariessReducer(state = initState, action) {
                 isLoading: true
             };
         case GET_ITINERARIES:
-            console.log(action.payload);
             return {
                 ...state,
                 error: null,
@@ -42,7 +41,6 @@ export default function itinerariessReducer(state = initState, action) {
                 isLoading: true
             };
         case GET_ITINERARIES_COMMENTS:
-            console.log(action.payload);
             return {
                 ...state,
                 error: null,

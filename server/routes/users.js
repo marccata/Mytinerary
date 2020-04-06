@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../model/userModel.js')
+const itineraryModel = require('../model/itineraryModel')
 const bcrypt = require('bcrypt');
 const { check, validationResult } = require('express-validator');
 const passport = require("../middleware/passport");
@@ -49,7 +50,7 @@ router.post('/', [check('email').isEmail()], (req, res) => { //THE CHECK EMAIL P
 router.get("/auth/",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-        console.log(req.user)
+        console.log("req user: ", req.user)
       User
         .findById(req.user._id )
         .select("-password") //DO NOT RETURN PASSWORD IN ARRAY
@@ -70,38 +71,57 @@ router.get('/all',
             .catch(err => console.log(err));
 });
 
-//EDITING THIS
-/*
-router.post("/fav-itinerary/", (req, res) => {
-    
-    let newUser = new User({
-        user: req.body.user,
-        fav_itinerary: req.body.fav_itinerary,
-    })    
+router.put('/fav-itinerary/:itinerary_id',
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
 
-    User.findById( req.user._id ) 
-        .then(existingUser => {
+        console.log(req.user)
+        
+        let itineraryToUpdate = req.params.itinerary_id;
 
-            if(!existingUser) res.status(400).json({msg: 'Error: user does not exist'})
-            
-            // SI EL USUARIO EXISTE
-            if (existingUser) { 
+        // Check that the desired itinerary exists
+        itineraryModel.findById(itineraryToUpdate)
+        .then(itinerary => {
+            if (itinerary) {
 
-                fav_itinerary.save()
-                .then(fav_itinerary => {
-                    res.send(fav_itinerary)
+                // Find the user to update
+                User.findById(req.user._id)
+                .then(user=> {
+
+                    // Find the itinerary to update
+                    User.findOne({fav_itineraries:itineraryToUpdate})
+                    .then(repeatedItinerary=> {
+                        
+                        if(repeatedItinerary){
+
+                            // Delete the itinerary from favourites
+                            user.fav_itineraries.splice(itineraryToUpdate)
+                            return user.save()
+
+                        } else {
+                             
+                            // Save the itinerary as favourite in logged user's object
+                            user.fav_itineraries.push(itineraryToUpdate)
+                            return user.save()
+
+                        }
+
+                    })
+                    .then(updatedUser => {
+                        // Return on postman the updated user
+                        console.log(updatedUser)
+                        res.send(updatedUser)
+                    })
+                    .catch(err => { res.status(500).send("Error" + err) })
+                    
                 })
-                .catch(err => {
-                    res.status(500).send("Error" + err)
-                })
-
+                
             }
-            // SI EL USUARIO NO EXISTE: ERROR
-            else res.status(500).send("This user doesn't exist")
-    
-        }
-    
-});
-*/
+
+        })
+        .catch(err => { res.status(500).send("Error" + err) })
+
+    }
+);
 
 module.exports = router
